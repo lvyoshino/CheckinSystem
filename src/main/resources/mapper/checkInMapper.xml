@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="stu.lkh.system.infra.mapper.CheckInMapper">
+    <!--检索会议名字、会议室名字和是否在会议室返回内-->
+    <select id="checkIn" resultType="stu.lkh.system.infra.dataobject.MeetingDO">
+        SELECT mt.meeting_name, mt.meeting_room_name
+        FROM meeting mt
+        WHERE mt.meeting_name = #{meetingName} AND mt.meeting_room_name = #{meetingRoomName}
+    </select>
+    <select id="getMeetingRoom" resultType="stu.lkh.system.infra.dataobject.MeetingRoomDO">
+        select mr.meeting_room_placeX,mr.meeting_room_placeY
+        from meeting_room mr
+        where mr.meeting_room_name = #{meetingRoomName}
+    </select>
+    <insert id="saveCheckInRecord" >
+        insert into checkin_record(student_id, meeting_name)
+        values (#{studentId},#{meetingName})
+    </insert>
+</mapper>
